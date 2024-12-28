@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "quickai"
+version = "0.1.0"
+description = ""
+authors = ["sampath <118274231+sampath017@users.noreply.github.com>"]
+readme = "README.md"
+package-mode = true
+
+[tool.poetry.dependencies]
+python = "^3.12"
+torch = "^2.4.1"
+wandb = "^0.18.3"
+colorama = "^0.4.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

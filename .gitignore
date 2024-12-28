@@ -1,0 +1,10 @@
+__pycache__/
+data/
+.vscode/
+logs/
+reference/
+wandb/
+artifacts/
+.venv/
+*.png
+exp*
