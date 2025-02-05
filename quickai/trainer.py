@@ -49,6 +49,8 @@ class Trainer:
         self.save_checkpoint_type = save_checkpoint_type
 
         self.overfit_callback = None
+        self.early_stopping_callback = None
+        
         self.training_step = 0
         self.validation_step = 0
         self._earlystopping_callback()
@@ -108,12 +110,13 @@ class Trainer:
                 return callback
 
     def _earlystopping_callback(self):
-        for callback in self.callbacks:
-            if isinstance(callback, EarlyStoppingCallback):
-                self.early_stopping_callback = callback
-                break
-            else:
-                self.early_stopping_callback = False
+        if self.callbacks is not None:
+            for callback in self.callbacks:
+                if isinstance(callback, EarlyStoppingCallback):
+                    self.early_stopping_callback = callback
+                    break
+                else:
+                    self.early_stopping_callback = False
 
     def _earlystopping_callback_check(self, epoch_train_accuracy, epoch_val_accuracy):
         stop_training = False
