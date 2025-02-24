@@ -1,6 +1,13 @@
 import torch
 import torch.nn.functional as F
 
+def count_parameters(model):
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    non_trainable_params = sum(p.numel() for p in model.parameters() if not p.requires_grad)
+    
+    print(f"Trainable parameters: {trainable_params}")
+    print(f"Non-trainable parameters: {non_trainable_params}")
+
 
 def model_size(model):
     param_size = 0
