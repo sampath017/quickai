@@ -267,6 +267,8 @@ class Trainer:
             if not self.lr_scheduler_on_epoch:
                 self._lr_scheduler_update(on_epoch=False)
 
+            tqdm._instances.clear()
+
         epoch_train_loss = torch.tensor(step_train_losses).mean()
         epoch_train_accuracy = torch.tensor(step_train_accuracies).mean()
 
@@ -304,6 +306,8 @@ class Trainer:
                 "step_val_loss": step_val_loss,
                 "step_val_accuracy": step_val_accuracy
             })
+
+            tqdm._instances.clear()
 
         epoch_val_loss = torch.tensor(step_val_losses).mean()
         epoch_val_accuracy = torch.tensor(step_val_accuracies).mean()
