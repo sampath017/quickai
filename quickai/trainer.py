@@ -195,8 +195,8 @@ class Trainer:
                     color = ""
                     reset = ""
 
-                print(f"Epoch: {self.epoch}, train_accuracy: {\
-                    epoch_train_accuracy:.2f}, val_accuracy: {color}{epoch_val_accuracy:.2f}{reset}, lr: {self.current_lr:.4f}")
+                # print(f"Epoch: {self.epoch}, train_accuracy: {\
+                #     epoch_train_accuracy:.2f}, val_accuracy: {color}{epoch_val_accuracy:.2f}{reset}, lr: {self.current_lr:.4f}")
 
                 if self.fast_dev_run:
                     print("Sanity check done with fast dev run!")
