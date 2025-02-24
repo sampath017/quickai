@@ -235,10 +235,13 @@ class Trainer:
     def train(self):
         step_train_losses = []
         step_train_accuracies = []
-        total_batches = len(self.train_dataloader) if not self.limit_train_batches else self.limit_train_batches
+        if not self.limit_train_batches:
+            total_batches = len(self.train_dataloader)
+        elif self.limit_train_batches and (self.limit_train_batches <= len(self.train_dataloader)):
+            total_batches = self.limit_train_batches
 
         self.module.model.train()
-        for step, batch in enumerate(tqdm(self.train_dataloader, desc=f"Epoch: {self.epoch}", total=total_batches)):
+        for step, batch in enumerate(tqdm(self.train_dataloader, desc=f"Train Epoch: {self.epoch}", total=total_batches)):
             if self.limit_train_batches and (step > self.limit_train_batches):
                 break
 
@@ -279,7 +282,11 @@ class Trainer:
     def val(self, val_dataloader):
         step_val_losses = []
         step_val_accuracies = []
-        total_batches = len(val_dataloader) if not self.limit_val_batches else self.limit_val_batches
+
+        if not self.limit_val_batches:
+            total_batches = len(self.val_dataloader)
+        elif self.limit_val_batches and (self.limit_val_batches <= len(self.val_dataloader)):
+            total_batches = self.limit_val_batches
 
         self.module.model.eval()
         for step, batch in enumerate(tqdm(val_dataloader, desc=f"Epoch: {self.epoch}", total=total_batches)):
