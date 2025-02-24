@@ -289,7 +289,7 @@ class Trainer:
             total_batches = self.limit_val_batches
 
         self.module.model.eval()
-        for step, batch in enumerate(tqdm(val_dataloader, desc=f"Epoch: {self.epoch}", total=total_batches)):
+        for step, batch in enumerate(tqdm(val_dataloader, desc=f"Val Epoch: {self.epoch}", total=total_batches)):
             self.validation_step += 1
             if self.limit_val_batches and (step > self.limit_val_batches):
                 break
