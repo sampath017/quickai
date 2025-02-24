@@ -7,6 +7,7 @@ from .callbacks import OverfitCallback, EarlyStoppingCallback
 import time
 from .dataset import MapDataset
 import torch.optim.lr_scheduler as lrs
+from tqdm import tqdm
 
 
 class Trainer:
@@ -234,9 +235,10 @@ class Trainer:
     def train(self):
         step_train_losses = []
         step_train_accuracies = []
+        total_batches = len(self.train_dataloader) if not self.limit_train_batches else self.limit_train_batches
 
         self.module.model.train()
-        for step, batch in enumerate(self.train_dataloader):
+        for step, batch in enumerate(tqdm(self.train_dataloader, desc=f"Epoch: {self.epoch}", total=total_batches)):
             if self.limit_train_batches and (step > self.limit_train_batches):
                 break
 
@@ -277,9 +279,10 @@ class Trainer:
     def val(self, val_dataloader):
         step_val_losses = []
         step_val_accuracies = []
+        total_batches = len(val_dataloader) if not self.limit_val_batches else self.limit_val_batches
 
         self.module.model.eval()
-        for step, batch in enumerate(val_dataloader):
+        for step, batch in enumerate(tqdm(val_dataloader, desc=f"Epoch: {self.epoch}", total=total_batches)):
             self.validation_step += 1
             if self.limit_val_batches and (step > self.limit_val_batches):
                 break
